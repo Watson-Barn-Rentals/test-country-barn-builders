@@ -1,0 +1,132 @@
+backend:
+  name: git-gateway
+  repo: lukemiller93/country-barn-builders
+
+publish_mode: editorial_workflow
+media_folder: static/assets
+public_folder: assets
+site_url: https://countrybarnbuilders.com
+display_url: https://countrybarnbuilders.com
+
+collections:
+  - name: location
+    label: Locations
+    label_singular: Location
+    folder: content/locations
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { name: "template", widget: "hidden", default: "location" }
+      - {
+          name: "title",
+          label: "Location Name",
+          widget: "string",
+          required: true,
+        }
+      - name: "cover"
+        label: "Featured Image"
+        widget: "object"
+        required: true
+        fields:
+          - label: "Image"
+            name: "feature_image"
+            widget: "image"
+          - label: "Alt Text"
+            name: "alt_text"
+            widget: "string"
+      - label: "Address"
+        name: "address"
+        widget: "object"
+        fields:
+          - { label: "Street Address", name: "street", widget: "string" }
+          - { label: "City", name: "city", widget: "string" }
+          - {
+              label: "State",
+              name: "state",
+              widget: "string",
+              pattern: ["[A-Z]{2}", "Enter state abbrev., must be all caps"],
+            }
+          - { label: "Postal Code", name: "post_code", widget: "string" }
+      - label: "Phone"
+        name: "phone"
+        widget: "string"
+      - label: "Business Hours"
+        name: "business_hours"
+        widget: "list"
+        fields:
+          - { label: "Day", name: "day", widget: string }
+          - { label: "Hours", name: "hours", widget: string }
+
+  - name: special
+    label: Special Sales
+    label_singular: Special Sale
+    folder: content/specials
+    create: true
+    identifier_field: serial
+    editor:
+      preview: false
+    fields:
+      - { name: "template", widget: "hidden", default: "product" }
+      - {
+          name: "date",
+          label: "Date Added",
+          widget: "date",
+          format: "MMM Do YY",
+        }
+      - {
+          name: "size",
+          label: "Building Size",
+          widget: "string",
+          required: true,
+          pattern: [^\s*(\S(.*\S)?)\s*$, "Must not contain any spaces"],
+        }
+      - { name: "style", label: "Building Style", widget: "string" }
+      - { name: "serial", label: "Serial Number", widget: "string" }
+      - { name: "price", label: "Sale Price", widget: "number" }
+      - { name: "options", label: "Building Options", widget: "text" }
+      - label: "Image Gallery"
+        name: "gallery_image"
+        widget: "list"
+        fields:
+          - { label: "Image", name: "gallery_item", widget: image }
+          - {
+              label: "Alt Text",
+              name: "alt_text",
+              widget: string,
+              required: true,
+            }
+  - name: "shed-styles"
+    label: Building Styles
+    label_singular: Building Style
+    folder: content/shed-styles
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { name: "template", widget: "hidden", default: "shed-styles" }
+      - { name: "title", label: "Title", widget: "string", required: true }
+      - {
+          name: "sizes",
+          label: "Available Sizes",
+          widget: "string",
+          required: true,
+        }
+      - {
+          name: "starting_price",
+          label: "Starting At:",
+          widget: "string",
+          required: true,
+        }
+      - {
+          name: "featured_image",
+          label: "Image",
+          widget: "image",
+          required: true,
+        }
+      - {
+          name: "alt_text",
+          label: "Image Alt Text",
+          widget: "string",
+          required: true,
+        }
